@@ -1,0 +1,62 @@
+<mat-card class="shadow-none">
+  <mat-card-header class="flex justify-content-center p-3" style="background-color: #071013">
+    <mat-card-title class="flex justify-content-center text-white">Informações</mat-card-title>
+  </mat-card-header>
+
+  <div class="shadow-4 mt-4 border-round-lg mx-auto" style="width: 80vw">
+    <mat-card-actions class="flex justify-content-between" style="border-bottom: 1px solid #d2d2d2">
+      <div class="flex flex-column">
+        <span class="font-medium text-base" style="color: #596F62">Listagem de Informações</span><span class="text-xs pl-1" style="color: #888888">Resultados: {{listInfos.length}}</span>
+      </div>
+      <div fxLayout="row" fxFlexAlign="">
+        <div class="px-3">
+          <button mat-icon-button matTooltip="Novo" matTooltipPosition="before" (click)="cadastrarInfo()" style="color: #4758B8">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div class="flex align-items-center px-3" id="cdk-overlay-0">
+          <mat-select [(value)]="tipoSelecionado" (selectionChange)="buscarInfoPorTipo()">
+            <mat-option *ngFor="let tipo of listTipos" [value]="tipo.id">
+              {{tipo.label}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </mat-card-actions>
+
+    <mat-card-content>
+      <table mat-table [dataSource]="listInfos" class=" info-table">
+        <ng-container matColumnDef="info-descricao">
+          <th mat-header-cell *matHeaderCellDef> Descrição </th>
+          <td mat-cell *matCellDef="let info"> {{info.descricao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="info-peso">
+          <th mat-header-cell *matHeaderCellDef> Pontos </th>
+          <td mat-cell *matCellDef="let info"> {{info.peso}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="info-editar">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let info">
+            <button mat-mini-fab color="primary" (click)="insertUpdate(info)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="info-excluir">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let info">
+            <button mat-mini-fab color="primary" (click)="delete(info)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </div>
+</mat-card>

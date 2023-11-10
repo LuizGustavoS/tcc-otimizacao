@@ -1,0 +1,17 @@
+.info-table {
+    width: 100%;
+}
+
+.mat-column-info-descricao {
+    padding-left: 16px;
+    font-size: 20px;
+}
+
+.mat-column-info-editar {
+    width: 32px;
+    text-align: center;
+}
+
+#cdk-overlay-0{
+    width: 200px;
+}

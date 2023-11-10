@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+
+  database:
+    image: postgres:latest
+    container_name: database
+    ports:
+      - "5432:5432"
+    networks:
+      - tcc-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=tcc
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    #image: tcc-algorithm:latest
+    build: tcc-algorithm
+    container_name: backend
+    ports:
+      - "8000:8000"
+    networks:
+      - tcc-network
+    environment:
+      CONFIG_MODE: "development"
+      DEVELOPMENT_DATABASE_URL: "postgresql+psycopg2://postgres:123@database:5432/tcc"
+
+volumes:
+  db_volume:
+    driver: local
+
+networks:
+  tcc-network:
+    name: tcc-network
+    driver: bridge

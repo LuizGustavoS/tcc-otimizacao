@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="descricao">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Peso</mat-label>
+            <input matInput formControlName="peso">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button (click)="gravar()">Gravar</button>
+    </div>
+</form>
