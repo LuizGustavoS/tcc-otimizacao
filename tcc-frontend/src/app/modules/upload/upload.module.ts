@@ -23,10 +23,10 @@ const routesM: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    UploadComponent,
-    UploadResultComponent,
-  ],
+    declarations: [
+        UploadComponent,
+        UploadResultComponent,
+    ],
     imports: [
         CommonModule,
         RouterModule.forChild(routesM),
@@ -38,7 +38,10 @@ const routesM: Routes = [
         MatPaginatorModule,
         MatCardModule
     ],
-  providers: []
+    exports: [
+        UploadComponent
+    ],
+    providers: []
 })
 
 export class UploadModule {

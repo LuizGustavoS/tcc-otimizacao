@@ -9,15 +9,24 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {InfoModule} from "./modules/info/info.module";
 import {ErrorIntercept} from "./core/error.interceptor";
 import {MatTabsModule} from "@angular/material/tabs";
+import {LoaderInterceptor} from "./core/loader.interceptor";
+import {LoaderComponent} from "./core/loader/loader.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoaderComponent
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorIntercept,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
       multi: true
     }
   ],
@@ -29,7 +38,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     MatTabsModule,
 
     InfoModule,
-    UploadModule
+    UploadModule,
+    MatProgressSpinnerModule
   ],
   bootstrap: [AppComponent]
 })
