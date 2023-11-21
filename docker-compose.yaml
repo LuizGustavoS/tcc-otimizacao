@@ -2,8 +2,7 @@ version: "3.8"
 services:
 
   tcc_database:
-    deploy:
-      replicas: 1
+    restart: always
     image: postgres:latest
     container_name: tcc_database
     ports:
@@ -19,9 +18,9 @@ services:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   tcc_backend:
-    deploy:
-      replicas: 1
-    build: tcc-algorithm
+    restart: always
+    #build: tcc-algorithm
+    image: luizgustavo/tcc_algorithm:latest
     container_name: tcc_backend
     ports:
       - "8000:8000"
@@ -32,9 +31,9 @@ services:
       DEVELOPMENT_DATABASE_URL: "postgresql+psycopg2://postgres:123@tcc_database:5432/tcc"
 
   tcc_frontend:
-    deploy: 
-      replicas: 1
-    build: tcc-frontend
+    restart: always
+    #build: tcc-frontend
+    image: luizgustavo/tcc_frontend:latest
     container_name: tcc_frontend
     ports:
       - "80:80"
