@@ -6,6 +6,14 @@ create table info
     tipo      double precision not null
 );
 
+create table config
+(
+    id            int not null primary key,
+    num_pop_init  double precision not null,
+    num_geracoes  double precision not null,
+    orcamento_mes decimal not null
+);
+
 INSERT INTO info(id, descricao, tipo, peso)
 VALUES (gen_random_uuid(), 'A', 0, 15),
        (gen_random_uuid(), 'B', 0, 10),
@@ -43,3 +51,6 @@ VALUES (gen_random_uuid(), 'Emergência',   2, 10),
        (gen_random_uuid(), 'Importante',   2, 2),
        (gen_random_uuid(), 'Normal',       2, 1),
        (gen_random_uuid(), 'Data Marcada', 2, 0);
+
+INSERT INTO config(id, num_pop_init, num_geracoes, orcamento_mes)
+VALUES (1, 10, 100, 1000000);
