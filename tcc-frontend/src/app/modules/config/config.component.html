@@ -1,0 +1,36 @@
+<mat-card class="shadow-none">
+    <mat-card-header class="flex justify-content-center p-3" style="background-color: #071013">
+        <mat-card-title class="flex justify-content-center text-white">Informações</mat-card-title>
+    </mat-card-header>
+
+    <div class="shadow-4 mt-4 border-round-lg mx-auto" style="width: 80vw">
+        <mat-card-actions class="flex justify-content-between" style="border-bottom: 1px solid #d2d2d2">
+            <div class="flex flex-column">
+                <span class="font-medium text-base" style="color: #596F62">Configurações</span>
+            </div>
+        </mat-card-actions>
+
+        <mat-card-content *ngIf="form">
+            <form [formGroup]="form">
+                <div class="flex justify-content-around">
+                    <mat-form-field>
+                        <mat-label>População Inicial</mat-label>
+                        <input matInput formControlName="num_pop_init">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Numero de Gerações</mat-label>
+                        <input matInput formControlName="num_geracoes">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Orçamento</mat-label>
+                        <input matInput formControlName="orcamento_mes">
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-actions>
+                    <button mat-button (click)="onNoClick()">Cancelar</button>
+                    <button mat-button (click)="gravar()">Gravar</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+</mat-card>

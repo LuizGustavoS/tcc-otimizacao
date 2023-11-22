@@ -21,19 +21,20 @@ export class AppComponent {
         label: 'Listagem',
         index: 1
       },
+      {
+        label: 'Configurações ',
+        index: 2
+      },
     ];
   }
 
   onTabChanged(event: MatTabChangeEvent): void {
-    switch (event.index) {
-      case 0: // index of the tab
-        // this is our stub tab for link
-        this.router.navigate(['/']);
-        break;
-      case 1:
-        // do stuff with content or do nothing :)
-        this.router.navigate(['/info']);
-        break;
+    if (event.index === 0) {
+      this.router.navigate(['/']);
+    } else if (event.index === 1) {
+      this.router.navigate(['/info']);
+    } else if (event.index === 2) {
+      this.router.navigate(['/config']);
     }
   }
 }

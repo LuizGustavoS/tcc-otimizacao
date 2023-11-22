@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/info/info.module').then(m => m.InfoModule)
   },
   {
+    path: 'config',
+    loadChildren: () => import('./modules/config/config.module').then(m => m.ConfigModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./modules/upload/upload.module').then(m => m.UploadModule)
   }

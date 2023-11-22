@@ -17,6 +17,7 @@ def hello():
 # Applications Routes
 from .algorithm import urls
 from .info import urls
+from .configuracao import urls
 
 # ----------------------------------------------- #
 
