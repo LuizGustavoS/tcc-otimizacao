@@ -1,8 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {UploadService} from "../../services/upload.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {Chart, registerables} from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,9 +12,14 @@ import {MatPaginator} from "@angular/material/paginator";
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  constructor(private service: UploadService,
-              public dialog: MatDialog) {}
+  constructor(private cdr: ChangeDetectorRef,
+              private elementRef: ElementRef,
+              private service: UploadService,
+              public dialog: MatDialog) {
+    Chart.register(...registerables);
+  }
 
+  chart: any;
   listSize = 0;
   listResult: any = null;
 
@@ -39,7 +45,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-
+    this.createChart()
   }
 
   onUpload(event: any): void {
@@ -52,6 +58,31 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(response);
       this.listSize = response.length;
       this.listResult = response;
+
+      this.cdr.detectChanges();
+      this.createChart();
+    });
+  }
+
+  createChart(){
+
+    let htmlRef = this.elementRef.nativeElement.querySelector(`#yourCavasId`);
+    this.chart = new Chart(htmlRef, {
+      type: 'bar',
+      data: {
+        labels: ['A', 'B', 'C', 'D'],
+        datasets: [
+          {
+            label: "Sales",
+            data: ['1', '2', '3', '4'],
+            backgroundColor: 'blue'
+          }
+        ]
+      },
+      options: {
+        aspectRatio:2.5
+      }
+
     });
   }
 
