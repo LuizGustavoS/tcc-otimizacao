@@ -30,6 +30,9 @@ export class ConfigComponent implements OnInit {
   }
 
   gravar(): void {
+    this.configService.update(this.form.value).subscribe(response => {
+      this.createForm(response);
+    })
   }
 
   createForm(config: Config): any {
