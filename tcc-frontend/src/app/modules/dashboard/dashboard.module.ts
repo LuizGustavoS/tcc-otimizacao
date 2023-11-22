@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
-import {UploadComponent} from "./upload.component";
+import {DashboardComponent} from "./dashboard.component";
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
 
@@ -7,14 +7,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {FlexModule} from "@angular/flex-layout";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
-import {UploadResultComponent} from "./result/upload-result.component";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatCardModule} from "@angular/material/card";
 
 const routesM: Routes = [
   {
     path: '',
-    component: UploadComponent,
+    component: DashboardComponent,
     data: {
       title: 'Upload',
       path: 'upload'
@@ -24,8 +23,7 @@ const routesM: Routes = [
 
 @NgModule({
     declarations: [
-        UploadComponent,
-        UploadResultComponent,
+        DashboardComponent
     ],
     imports: [
         CommonModule,
@@ -39,10 +37,10 @@ const routesM: Routes = [
         MatCardModule
     ],
     exports: [
-        UploadComponent
+        DashboardComponent
     ],
     providers: []
 })
 
-export class UploadModule {
+export class DashboardModule {
 }

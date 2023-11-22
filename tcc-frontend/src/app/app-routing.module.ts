@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () => import('./modules/upload/upload.module').then(m => m.UploadModule)
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 ];
 
