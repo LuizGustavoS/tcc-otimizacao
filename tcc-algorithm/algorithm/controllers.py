@@ -8,22 +8,24 @@ from deap import creator
 from deap import tools
 
 from ..info.controllers import list_all_controller_dic
+from ..configuracao.controllers import retrieve_config_controller_dic
 from .utils import load_data_xlsx, find_indices
-
-num_pop_init = 10
-num_geracoes = 100
-orcamento_mes = 1000000
 
 
 def executar_algoritmo(ws_base):
 
     random.seed(64)
+    global list_data, orcamento_mes
+
+    configuracao = retrieve_config_controller_dic()
+    num_pop_init = configuracao['num_pop_init']
+    num_geracoes = configuracao['num_geracoes']
+    orcamento_mes = configuracao['orcamento_mes']
 
     list_criticidade = list_all_controller_dic(0)
     list_atividade = list_all_controller_dic(1)
     list_prioridade = list_all_controller_dic(2)
 
-    global list_data
     list_data = load_data_xlsx(ws_base, list_criticidade, list_atividade, list_prioridade)
 
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
