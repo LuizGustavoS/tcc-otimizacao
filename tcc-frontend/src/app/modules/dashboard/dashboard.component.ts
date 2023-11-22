@@ -1,16 +1,18 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {UploadService} from "../../services/upload.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {Chart, registerables} from 'chart.js';
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit {
 
   constructor(private cdr: ChangeDetectorRef,
               private elementRef: ElementRef,
@@ -42,11 +44,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     'result-priorizado'
   ]
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.createChart()
+  modelChat: any = {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: "Sales",
+          data: [],
+          backgroundColor: 'blue'
+        }
+      ]
+    },
+    options: {
+      aspectRatio:2.5
+    }
   }
+
+  ngOnInit(): void {}
 
   onUpload(event: any): void {
 
@@ -60,30 +75,25 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.listResult = response;
 
       this.cdr.detectChanges();
-      this.createChart();
+      this.createChart(response);
     });
   }
 
-  createChart(){
+  createChart(result: any){
+
+    let mapEquipamento = new Map<string, number>();
+    for (let i = 0; i < result.length; i++) {
+      var atual = mapEquipamento.get(result[i].equipamento);
+      mapEquipamento.set(result[i].equipamento, (atual? atual +1 : 1))
+    }
+
+    for (let [key, value] of mapEquipamento) {
+      this.modelChat.data.label.push(key);
+      this.modelChat.data.datasets[0].data.push(value);
+    }
 
     let htmlRef = this.elementRef.nativeElement.querySelector(`#yourCavasId`);
-    this.chart = new Chart(htmlRef, {
-      type: 'bar',
-      data: {
-        labels: ['A', 'B', 'C', 'D'],
-        datasets: [
-          {
-            label: "Sales",
-            data: ['1', '2', '3', '4'],
-            backgroundColor: 'blue'
-          }
-        ]
-      },
-      options: {
-        aspectRatio:2.5
-      }
-
-    });
+    this.chart = new Chart(htmlRef, this.modelChat);
   }
 
 }
