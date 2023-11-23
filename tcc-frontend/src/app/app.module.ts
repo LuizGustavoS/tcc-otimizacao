@@ -13,6 +13,11 @@ import {LoaderInterceptor} from "./core/loader.interceptor";
 import {LoaderComponent} from "./core/loader/loader.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
+import localePt from '@angular/common/locales/pt';
+import {registerLocaleData} from "@angular/common";
+
+registerLocaleData(localePt);
+
 @NgModule({
   declarations: [
     AppComponent,

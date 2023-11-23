@@ -4,9 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "tcc-frontend": {
-      "i18n": {
-        "sourceLocale": "pt"
-      },
       "projectType": "application",
       "schematics": {},
       "root": "",
