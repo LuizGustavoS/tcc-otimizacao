@@ -4,7 +4,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {Chart, registerables} from 'chart.js';
-import _default from "chart.js/dist/plugins/plugin.tooltip";
+import {Result} from "../../model/Result";
 
 
 @Component({
@@ -24,6 +24,9 @@ export class DashboardComponent implements OnInit {
   chart: any;
   listSize = 0;
   listResult: any = null;
+
+  qtdePriorizada = 0;
+  valorPriorizado = 0;
 
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
@@ -50,7 +53,7 @@ export class DashboardComponent implements OnInit {
       labels: [],
       datasets: [
         {
-          label: "Sales",
+          label: "",
           data: [],
           backgroundColor: 'blue'
         }
@@ -79,21 +82,52 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  createChart(result: any){
+  createChart(result: Result[]){
 
     let mapEquipamento = new Map<string, number>();
+    let mapCriticidade = new Map<string, number>();
+    let mapAtividade = new Map<string, number>();
+
     for (let i = 0; i < result.length; i++) {
-      var atual = mapEquipamento.get(result[i].equipamento);
-      mapEquipamento.set(result[i].equipamento, (atual? atual +1 : 1))
+      if (!result[i].priorizado){
+        continue
+      }
+
+      const equipAtual = mapEquipamento.get(result[i].equipamento);
+      mapEquipamento.set(result[i].equipamento, (equipAtual? equipAtual +1 : 1))
+
+      const critAtual = mapCriticidade.get(result[i].pom);
+      mapCriticidade.set(result[i].pom, (critAtual? critAtual +1 : 1))
+
+      const ativAtual = mapAtividade.get(result[i].tam);
+      mapAtividade.set(result[i].tam, (ativAtual? ativAtual +1 : 1))
+
+      this.valorPriorizado+=result[i].valor;
+      this.qtdePriorizada++
     }
 
-    for (let [key, value] of mapEquipamento) {
-      this.modelChat.data.label.push(key);
-      this.modelChat.data.datasets[0].data.push(value);
-    }
+    const chartEquipamento = Object.assign(JSON.parse(JSON.stringify(this.modelChat)));
+    chartEquipamento.data.datasets[0].label = 'Equipamento';
+    chartEquipamento.data.labels = Array.from(mapEquipamento.keys());
+    chartEquipamento.data.datasets[0].data = Array.from(mapEquipamento.values());
 
-    let htmlRef = this.elementRef.nativeElement.querySelector(`#yourCavasId`);
-    this.chart = new Chart(htmlRef, this.modelChat);
+    const chartCriticidade = JSON.parse(JSON.stringify(this.modelChat));
+    chartCriticidade.data.datasets[0].label = 'Criticidade';
+    chartCriticidade.data.labels = Array.from(mapCriticidade.keys());
+    chartCriticidade.data.datasets[0].data = Array.from(mapCriticidade.values());
+
+    const chartAtividade = JSON.parse(JSON.stringify(this.modelChat));
+    chartAtividade.data.datasets[0].label = 'Atividade';
+    chartAtividade.data.labels = Array.from(mapAtividade.keys());
+    chartAtividade.data.datasets[0].data = Array.from(mapAtividade.values());
+
+    let refEquipamento = this.elementRef.nativeElement.querySelector(`#chartEquipamento`);
+    let refCriticidade = this.elementRef.nativeElement.querySelector(`#chartCriticidade`);
+    let refAtividade = this.elementRef.nativeElement.querySelector(`#chartAtividade`);
+
+    this.chart = new Chart(refEquipamento, chartEquipamento);
+    this.chart = new Chart(refCriticidade, chartCriticidade);
+    this.chart = new Chart(refAtividade, chartAtividade);
   }
 
 }

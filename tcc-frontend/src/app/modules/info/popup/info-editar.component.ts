@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Info} from "../../../model/Info";
 import {InfoService} from "../../../services/info.service";
 import {FormBuilder, FormControl} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-info-editar',
@@ -15,7 +16,8 @@ export class InfoEditarComponent implements OnInit {
         public dialogRef: MatDialogRef<InfoEditarComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Info,
         private formBuilder: FormBuilder,
-        private infoService: InfoService
+        private infoService: InfoService,
+        private _snackBar: MatSnackBar
     ) {}
 
     form: any;
@@ -29,15 +31,16 @@ export class InfoEditarComponent implements OnInit {
     }
 
     gravar(): void {
-
         if (this.form.value.id){
             this.infoService.update(this.form.value).subscribe(() => {
+                this._snackBar.open('Dados Alterados com Sucesso', 'OK')
                 this.dialogRef.close();
             });
             return;
         }
 
         this.infoService.create(this.form.value).subscribe(() => {
+            this._snackBar.open('Dados Cadastrados com Sucesso', 'OK')
             this.dialogRef.close();
         });
     }

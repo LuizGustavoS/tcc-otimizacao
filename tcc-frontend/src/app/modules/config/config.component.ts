@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Config} from "../../model/Config";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {ConfigService} from "../../services/config.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-config',
@@ -13,6 +14,7 @@ export class ConfigComponent implements OnInit {
   form: any;
 
   constructor(
+      private _snackBar: MatSnackBar,
       private formBuilder: FormBuilder,
       private configService: ConfigService
   ) {}
@@ -32,6 +34,7 @@ export class ConfigComponent implements OnInit {
   gravar(): void {
     this.configService.update(this.form.value).subscribe(response => {
       this.createForm(response);
+      this._snackBar.open('Dados Gravado com Sucesso', 'OK')
     })
   }
 

@@ -22,8 +22,36 @@
             </mat-card-content>
 
             <mat-card-content *ngIf="listResult">
-
-                <canvas id="yourCavasId"></canvas>
+                <div class="flex justify-content-between p-3">
+                    <div style="width: 25%">
+                        <mat-card style="width: 100%; height: 50%">
+                            <mat-card-subtitle>Quantidade de Ordens Priorizadas</mat-card-subtitle>
+                            <mat-card-content>{{qtdePriorizada}}</mat-card-content>
+                        </mat-card>
+                        <mat-card style="width: 100%; height: 50%">
+                            <mat-card-subtitle>Valor Total Priorizadas</mat-card-subtitle>
+                            <mat-card-content>{{valorPriorizado | currency}}</mat-card-content>
+                        </mat-card>
+                    </div>
+                    <mat-card style="width: 25%">
+                        <mat-card-subtitle>Nº de Ordens por Equipamento</mat-card-subtitle>
+                        <mat-card-content>
+                            <canvas id="chartEquipamento"></canvas>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card style="width: 25%">
+                        <mat-card-subtitle>Nº de Ordens por Criticidade</mat-card-subtitle>
+                        <mat-card-content>
+                            <canvas id="chartCriticidade"></canvas>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card style="width: 25%">
+                        <mat-card-subtitle>Nº de Ordens por Atividade</mat-card-subtitle>
+                        <mat-card-content>
+                            <canvas id="chartAtividade"></canvas>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
 
                 <section class="example-container mat-elevation-z8" tabindex="0">
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 80%">
@@ -54,7 +82,7 @@
 
                         <ng-container matColumnDef="result-valor">
                             <th mat-header-cell *matHeaderCellDef> Valor </th>
-                            <td mat-cell *matCellDef="let result"> {{result.valor}} </td>
+                            <td mat-cell *matCellDef="let result"> {{result.valor | currency}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="result-priorizado">

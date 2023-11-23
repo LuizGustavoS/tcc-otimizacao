@@ -23,7 +23,7 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Orçamento</mat-label>
-                        <input matInput formControlName="orcamento_mes">
+                        <input currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput formControlName="orcamento_mes">
                     </mat-form-field>
                 </div>
                 <div mat-dialog-actions>

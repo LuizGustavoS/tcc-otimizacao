@@ -15,6 +15,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 const routesM: Routes = [
   {
@@ -35,6 +36,7 @@ const routesM: Routes = [
         CommonModule,
         RouterModule.forChild(routesM),
 
+        CurrencyMaskModule,
         MatButtonModule,
         FlexModule,
         MatIconModule,
