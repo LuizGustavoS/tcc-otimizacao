@@ -32,8 +32,8 @@ services:
 
   tcc_frontend:
     restart: always
-    build: tcc-frontend
-    #image: luizgustavo/tcc_frontend:latest
+    #build: tcc-frontend
+    image: luizgustavo/tcc_frontend:latest
     container_name: tcc_frontend
     ports:
       - "80:80"
