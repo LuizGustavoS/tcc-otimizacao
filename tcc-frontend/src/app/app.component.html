@@ -1,7 +1,12 @@
-<mat-tab-group (selectedTabChange)="onTabChanged($event)">
-    <mat-tab label="Upload"></mat-tab>
-    <mat-tab label="Listagem"></mat-tab>
-    <mat-tab label="Configurações"></mat-tab>
-</mat-tab-group>
+<!--<mat-tab-group color="primary" backgroundColor="primary" (selectedTabChange)="onTabChanged($event)">-->
+<!--    <mat-tab label="Upload"></mat-tab>-->
+<!--    <mat-tab label="Listagem"></mat-tab>-->
+<!--    <mat-tab label="Configurações"></mat-tab>-->
+<!--</mat-tab-group>-->
+<mat-toolbar color="primary">
+    <button mat-flat-button color="primary" (click)="onTabChanged(0)" class="btn-clicked">Dashboard</button>
+    <button mat-flat-button color="primary" (click)="onTabChanged(1)">Infos</button>
+    <button mat-flat-button color="primary" (click)="onTabChanged(2)">Config</button>
+</mat-toolbar>
 <app-loader></app-loader>
 <router-outlet></router-outlet>

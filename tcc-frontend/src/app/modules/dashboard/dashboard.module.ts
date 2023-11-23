@@ -9,6 +9,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatCardModule} from "@angular/material/card";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatListModule} from "@angular/material/list";
 
 const routesM: Routes = [
   {
@@ -34,7 +36,9 @@ const routesM: Routes = [
         MatIconModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCardModule
+        MatCardModule,
+        MatTabsModule,
+        MatListModule
     ],
     exports: [
         DashboardComponent

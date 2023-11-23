@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
         {
           label: "",
           data: [],
-          backgroundColor: 'blue'
+          backgroundColor: '#3f51b5'
         }
       ]
     },

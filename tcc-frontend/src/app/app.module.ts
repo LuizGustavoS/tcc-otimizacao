@@ -15,6 +15,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import localePt from '@angular/common/locales/pt';
 import {registerLocaleData} from "@angular/common";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
 
 registerLocaleData(localePt);
 
@@ -43,17 +45,19 @@ registerLocaleData(localePt);
       useValue: 'BRL',
     },
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatTabsModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatTabsModule,
 
-    InfoModule,
-    DashboardModule,
-    MatProgressSpinnerModule
-  ],
+        InfoModule,
+        DashboardModule,
+        MatProgressSpinnerModule,
+        MatToolbarModule,
+        MatButtonModule
+    ],
   bootstrap: [AppComponent]
 })
 
