@@ -1,9 +1,6 @@
 <div style="background: #e8e8e8; height: calc(100% - 50px)">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%">
         <mat-card style="width: 100%; height: calc(100vh - 50px)">
-<!--            <mat-card-header class="flex justify-content-center p-3" style="background-color: #071013">-->
-<!--                <mat-card-title class="flex justify-content-center text-white">Dashboard</mat-card-title>-->
-<!--            </mat-card-header>-->
             <mat-card-content *ngIf="!listResult">
                 <div class="shadow-4 mx-auto mt-4 flex flex-column align-items-center" style="width: 80vw">
                     <p class="text-xl font-bold py-4" style="color: #596F62">Selecione o arquivo para upload</p>
@@ -26,7 +23,7 @@
                 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
                     <mat-tab label="Gráficos">
                         <div class="flex justify-content-between p-3">
-                            <div style="width: 50%">
+                            <div style="flex: 50">
                                 <mat-card style="width: 100%; height: 50%">
                                     <mat-card-subtitle>Quantidade de Ordens Priorizadas</mat-card-subtitle>
                                     <mat-card-content>{{qtdePriorizada}}</mat-card-content>
@@ -36,7 +33,7 @@
                                     <mat-card-content>{{valorPriorizado | currency}}</mat-card-content>
                                 </mat-card>
                             </div>
-                            <mat-card style="width: 50%">
+                            <mat-card style="flex: 50">
                                 <mat-card-subtitle>Nº de Ordens por Equipamento</mat-card-subtitle>
                                 <mat-card-content>
                                     <canvas id="chartEquipamento"></canvas>
@@ -44,13 +41,13 @@
                             </mat-card>
                         </div>
                         <div class="flex justify-content-center p-3">
-                            <mat-card style="width: 50%">
+                            <mat-card style="flex: 50">
                                 <mat-card-subtitle>Nº de Ordens por Criticidade</mat-card-subtitle>
                                 <mat-card-content>
                                     <canvas id="chartCriticidade"></canvas>
                                 </mat-card-content>
                             </mat-card>
-                            <mat-card style="width: 50%">
+                            <mat-card style="flex: 50">
                                 <mat-card-subtitle>Nº de Ordens por Atividade</mat-card-subtitle>
                                 <mat-card-content>
                                     <canvas id="chartAtividade"></canvas>

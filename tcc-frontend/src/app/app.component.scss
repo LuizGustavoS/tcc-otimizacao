@@ -1,9 +1,7 @@
-:host::ng-deep {
-    .btn-clicked {
-        background: red;
-    }
+.btn-clicked {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
 
-    .unclicked {
-        background-color: rgba(0, 0, 0, 0);
-    }
+.unclicked {
+    background-color: rgba(0, 0, 0, 0) !important;
 }

@@ -9,30 +9,13 @@ import {MatTabChangeEvent} from "@angular/material/tabs";
 })
 export class AppComponent {
 
-  navLinks: any[];
-  toggle = true
+  selected = 0;
 
-  constructor(
-      private router: Router
-  ) {
-    this.navLinks = [
-      {
-        label: 'Upload',
-        index: 0
-      }, {
-        label: 'Listagem',
-        index: 1
-      },
-      {
-        label: 'Configurações ',
-        index: 2
-      },
-    ];
-  }
+  constructor(private router: Router) {}
 
   onTabChanged(index: number): void {
+    this.selected = index
     if (index === 0) {
-      this.toggle = true
       this.router.navigate(['/']);
     } else if (index === 1) {
       this.router.navigate(['/info']);
