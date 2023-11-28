@@ -1,19 +1,23 @@
 import array
+import datetime
 import random
+import uuid
 
 import numpy
 from deap import algorithms
 from deap import base
 from deap import creator
 from deap import tools
+from flask import jsonify
 
-from ..info.controllers import list_all_controller_dic
-from ..configuracao.controllers import retrieve_config_controller_dic
+from .models import Result, Data
 from .utils import load_data_xlsx, find_indices
+from ..__init__ import db
+from ..configuracao.controllers import retrieve_config_controller_dic
+from ..info.controllers import list_all_controller_dic
 
 
 def executar_algoritmo(ws_base):
-
     random.seed(64)
     global list_data, orcamento_mes
 
@@ -52,12 +56,55 @@ def executar_algoritmo(ws_base):
         verbose=True
     )
 
-    print('Melhor individuo', hof.keys[0])
+    response = []
+    result = create_result()
     for index, j in enumerate(hof.items[0]):
-        if j == 1:
-            list_data[index].priorizado = "Priorizado"
 
-    return list_data
+        data = list_data[index]
+        data.id = str(uuid.uuid4())
+        data.id_result = result.id
+
+        if j == 1:
+            data.priorizado = "Priorizado"
+
+        db.session.add(data)
+        response.append(data.toJSON())
+
+    db.session.commit()
+    return jsonify(response)
+
+
+def list_all_controller_json():
+    items = Result.query.filter()
+    response = []
+    for item in items:
+        response.append(item.toDict())
+
+    return jsonify(response)
+
+
+def list_all_data_controller_json(id_result):
+    data = Data.query.filter(Data.id_result == id_result)
+    response = []
+    for item in data:
+        response.append(item.toDict())
+
+    return jsonify(response)
+
+
+# ----------
+
+
+def create_result():
+    result_id = str(uuid.uuid4())
+    new_result = Result(
+        id=result_id,
+        data=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+    )
+
+    db.session.add(new_result)
+    db.session.commit()
+    return new_result
 
 
 def create_toolbox():

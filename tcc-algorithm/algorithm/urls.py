@@ -1,9 +1,7 @@
-import json
-
 import pandas
-from flask import request, make_response
+from flask import request
 
-from ..algorithm.controllers import executar_algoritmo
+from ..algorithm.controllers import executar_algoritmo, list_all_controller_json, list_all_data_controller_json
 from ..app import app
 
 
@@ -11,13 +9,16 @@ from ..app import app
 def execute_algorithm():
     file = request.files['file']
     data = pandas.read_excel(file)
+    return executar_algoritmo(data)
 
-    result = executar_algoritmo(data)
 
-    to_json = []
-    for i in result:
-        item = i.__dict__
-        item.pop('id')
-        to_json.append(item)
+@app.route("/algorithm", methods=['GET'])
+def get():
+    if request.method == 'GET':
+        return list_all_controller_json()
 
-    return make_response(json.dumps(to_json))
+
+@app.route("/algorithm/<id_result>", methods=['GET'])
+def get_data(id_result):
+    if request.method == 'GET':
+        return list_all_data_controller_json(id_result)

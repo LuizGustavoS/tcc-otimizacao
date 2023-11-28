@@ -14,6 +14,27 @@ create table config
     orcamento_mes decimal not null
 );
 
+CREATE TABLE result
+(
+    id              varchar(50) not null primary key,
+    data            varchar(50) not null
+);
+
+CREATE TABLE data
+(
+    id                     varchar(50) not null primary key,
+    ordem                  varchar(50),
+    data                   varchar(50),
+    equipamento            varchar(50),
+    prioridade_equipamento decimal,
+    tam                    varchar(50),
+    prioridade_tam         decimal,
+    pom                    varchar(50),
+    prioridade_ordem       decimal,
+    valor                  decimal,
+    id_result              varchar(50) references result(id)
+);
+
 INSERT INTO info(id, descricao, tipo, peso)
 VALUES (gen_random_uuid(), 'A', 0, 15),
        (gen_random_uuid(), 'B', 0, 10),
