@@ -15,4 +15,12 @@ export class UploadService {
   upload(form: FormData): Observable<any> {
     return this.http.post(this.apiUrl + '/algorithm', form);
   }
+
+  getResult(): Observable<any> {
+    return this.http.get(this.apiUrl + '/algorithm');
+  }
+
+  getData(idResult: number): Observable<any> {
+    return this.http.get(this.apiUrl + '/algorithm/' + idResult);
+  }
 }

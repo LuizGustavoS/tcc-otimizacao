@@ -23,7 +23,9 @@ export class DashboardComponent implements OnInit {
 
   chart: any;
   listSize = 0;
+  historicoSize = 0;
   listResult: any = null;
+  listHistorico: any = null;
 
   qtdePriorizada = 0;
   valorPriorizado = 0;
@@ -32,10 +34,13 @@ export class DashboardComponent implements OnInit {
   set paginator(value: MatPaginator) {
     if (this.dataSource){
       this.dataSource.paginator = value;
+    }if (this.dataSourceHistorico){
+      this.dataSourceHistorico.paginator = value;
     }
   }
 
   dataSource = new MatTableDataSource<any>();
+  dataSourceHistorico = new MatTableDataSource<any>();
 
   displayedColumns: string[] = [
     'result-ordem',
@@ -45,6 +50,12 @@ export class DashboardComponent implements OnInit {
     'result-pom',
     'result-valor',
     'result-priorizado'
+  ]
+
+  displayedColumnsHistorico: string[] = [
+    'historico-id',
+    'historico-data',
+    'historico-ver'
   ]
 
   modelChat: any = {
@@ -64,7 +75,14 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.service.getResult().subscribe(response => {
+      this.dataSourceHistorico = new MatTableDataSource(response);
+      this.historicoSize = response.length;
+    });
+
+  }
 
   onUpload(event: any): void {
 
