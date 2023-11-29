@@ -26,6 +26,7 @@ class Data(db.Model):
     pom = db.Column(db.String(50))
     prioridade_ordem = db.Column(db.Float)
     valor = db.Column(db.Float)
+    priorizado = db.Column(db.String(50))
     id_result = db.Column(db.String(50))
 
     def __init__(self, ordem, data, equipamento, prioridade_equipamento,
