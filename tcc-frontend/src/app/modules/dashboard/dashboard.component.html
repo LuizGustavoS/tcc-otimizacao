@@ -1,7 +1,7 @@
 <div style="background: #e8e8e8; height: calc(100% - 50px)">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%">
         <mat-card style="width: 100%; height: calc(100vh - 50px)">
-            <mat-card-content *ngIf="!listResult">
+            <mat-card-content *ngIf="resultSize == 0">
                 <div class="shadow-4 mx-auto mt-4 flex flex-column align-items-center" style="width: 80vw">
                     <p class="text-xl font-bold py-4" style="color: #596F62">Selecione o arquivo para upload</p>
                     <div fxLayout="row" fxLayoutAlign="center center">
@@ -11,8 +11,8 @@
                         </div>
                     </div>
                     <div class="block w-full">
-                        <div style="width: 90%; height: auto; margin: 0 auto; margin-top: 10px">
-                            <table mat-table [dataSource]="dataSourceHistorico" class="mat-elevation-z8" style="width: 80%">
+                        <div style="width: 90%; height: auto; margin: 20px auto 0;">
+                            <table mat-table [dataSource]="dtsHistorico" class="mat-elevation-z8" style="width: 80%">
                                 <ng-container matColumnDef="historico-id">
                                     <th mat-header-cell *matHeaderCellDef> Ordem </th>
                                     <td mat-cell *matCellDef="let result"> {{result.id}} </td>
@@ -26,7 +26,7 @@
                                 <ng-container matColumnDef="historico-ver">
                                     <th mat-header-cell *matHeaderCellDef> Visualizar </th>
                                     <td mat-cell *matCellDef="let result">
-                                        <button mat-icon-button color="primary">
+                                        <button mat-icon-button color="primary" (click)="onVisualize(result.id)">
                                             <mat-icon>visibility</mat-icon>
                                         </button>
                                     </td>
@@ -37,8 +37,7 @@
                             </table>
 
                             <mat-paginator [length]="historicoSize"
-                                           [pageSize]="10"
-                                           [pageSizeOptions]="[5, 10, 25, 100]"
+                                           [pageSize]="5"
                                            aria-label="Select page">
                             </mat-paginator>
                         </div>
@@ -46,11 +45,7 @@
                 </div>
             </mat-card-content>
 
-            <mat-card-content *ngIf="!listResult">
-
-            </mat-card-content>
-
-            <mat-card-content *ngIf="listResult">
+            <mat-card-content *ngIf="resultSize > 0">
                 <mat-divider></mat-divider>
                 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
                     <mat-tab label="Gráficos">
@@ -90,7 +85,7 @@
 
                     <mat-tab label="Resultados">
                         <section class="example-container mat-elevation-z8" tabindex="0">
-                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 80%">
+                            <table mat-table [dataSource]="dtsResult" class="mat-elevation-z8" style="width: 80%">
                                 <ng-container matColumnDef="result-ordem">
                                     <th mat-header-cell *matHeaderCellDef> Ordem </th>
                                     <td mat-cell *matCellDef="let result"> {{result.ordem}} </td>
@@ -131,7 +126,7 @@
                             </table>
                         </section>
 
-                        <mat-paginator [length]="listSize"
+                        <mat-paginator [length]="resultSize"
                                        [pageSize]="10"
                                        [pageSizeOptions]="[5, 10, 25, 100]"
                                        aria-label="Select page">

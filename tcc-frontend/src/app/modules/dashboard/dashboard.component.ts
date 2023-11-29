@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {UploadService} from "../../services/upload.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
@@ -22,25 +22,23 @@ export class DashboardComponent implements OnInit {
   }
 
   chart: any;
-  listSize = 0;
-  historicoSize = 0;
-  listResult: any = null;
-  listHistorico: any = null;
-
   qtdePriorizada = 0;
   valorPriorizado = 0;
 
+  resultSize = 0;
+  historicoSize = 0;
+
+  dtsHistorico = new MatTableDataSource<any>();
+  dtsResult = new MatTableDataSource<any>();
+
+  @ViewChild(MatPaginator) historicoPaginator: MatPaginator;
+
   @ViewChild(MatPaginator, {static: false})
   set paginator(value: MatPaginator) {
-    if (this.dataSource){
-      this.dataSource.paginator = value;
-    }if (this.dataSourceHistorico){
-      this.dataSourceHistorico.paginator = value;
+    if (this.dtsResult){
+      this.dtsResult.paginator = value;
     }
   }
-
-  dataSource = new MatTableDataSource<any>();
-  dataSourceHistorico = new MatTableDataSource<any>();
 
   displayedColumns: string[] = [
     'result-ordem',
@@ -76,31 +74,39 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.service.getResult().subscribe(response => {
-      this.dataSourceHistorico = new MatTableDataSource(response);
+      this.dtsHistorico = new MatTableDataSource(response);
+      this.dtsHistorico.paginator = this.historicoPaginator;
       this.historicoSize = response.length;
     });
-
   }
 
   onUpload(event: any): void {
-
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append("file", file, file.name);
 
     this.service.upload(formData).subscribe(response => {
-      this.dataSource = new MatTableDataSource(response);
-      this.listSize = response.length;
-      this.listResult = response;
-
-      this.cdr.detectChanges();
-      this.createChart(response);
+      this.carregarDados(response)
     });
   }
 
-  createChart(result: Result[]){
+  onVisualize(id: number){
+    this.service.getData(id).subscribe(response => {
+      this.carregarDados(response)
+    })
+  }
+
+  //--
+
+  private carregarDados(response: any){
+    this.dtsResult = new MatTableDataSource(response);
+    this.resultSize = response.length;
+    this.cdr.detectChanges();
+    this.createChart(response);
+  }
+
+  private createChart(result: Result[]){
 
     let mapEquipamento = new Map<string, number>();
     let mapCriticidade = new Map<string, number>();
@@ -147,5 +153,4 @@ export class DashboardComponent implements OnInit {
     this.chart = new Chart(refCriticidade, chartCriticidade);
     this.chart = new Chart(refAtividade, chartAtividade);
   }
-
 }
