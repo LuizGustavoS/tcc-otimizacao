@@ -1,38 +1,39 @@
-create table info
+CREATE TABLE info
 (
-    id        varchar(50)      not null primary key,
-    descricao varchar(50)      not null,
-    peso      double precision not null,
-    tipo      double precision not null
+    id        VARCHAR(36)      NOT NULL PRIMARY KEY,
+    descricao VARCHAR(50)      NOT NULL,
+    peso      DOUBLE PRECISION NOT NULL,
+    tipo      DOUBLE PRECISION NOT NULL
 );
 
-create table config
+CREATE TABLE config
 (
-    id            int not null primary key,
-    num_pop_init  double precision not null,
-    num_geracoes  double precision not null,
-    orcamento_mes decimal not null
+    id            INT              NOT NULL PRIMARY KEY,
+    num_pop_init  DOUBLE PRECISION NOT NULL,
+    num_geracoes  DOUBLE PRECISION NOT NULL,
+    orcamento_mes DECIMAL          NOT NULL
 );
 
 CREATE TABLE result
 (
-    id              varchar(50) not null primary key,
-    data            varchar(50) not null
+    id              VARCHAR(36)  NOT NULL PRIMARY KEY,
+    data            VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE data
+CREATE TABLE data   
 (
-    id                     varchar(50) not null primary key,
-    ordem                  varchar(50),
-    data                   varchar(50),
-    equipamento            varchar(50),
-    prioridade_equipamento decimal,
-    tam                    varchar(50),
-    prioridade_tam         decimal,
-    pom                    varchar(50),
-    prioridade_ordem       decimal,
-    valor                  decimal,
-    id_result              varchar(50) references result(id)
+    id                     VARCHAR(36) NOT NULL PRIMARY KEY,
+    ordem                  VARCHAR(50),
+    data                   VARCHAR(8),
+    equipamento            VARCHAR(50),
+    prioridade_equipamento DECIMAL,
+    tam                    VARCHAR(50),
+    prioridade_tam         DECIMAL,
+    pom                    VARCHAR(50),
+    prioridade_ordem       DECIMAL,
+    valor                  DECIMAL,
+    priorizado             VARCHAR(50),
+    id_result              VARCHAR(36) NOT NULL REFERENCES result(id)
 );
 
 INSERT INTO info(id, descricao, tipo, peso)
