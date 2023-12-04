@@ -2,6 +2,7 @@ import array
 import datetime
 import random
 import uuid
+from cgitb import text
 
 import numpy
 from deap import algorithms
@@ -9,6 +10,7 @@ from deap import base
 from deap import creator
 from deap import tools
 from flask import jsonify
+from sqlalchemy import desc
 
 from .models import Result, Data
 from .utils import load_data_xlsx, find_indices
@@ -75,7 +77,7 @@ def executar_algoritmo(ws_base):
 
 
 def list_all_controller_json():
-    items = Result.query.filter()
+    items = Result.query.filter().order_by(desc(Result.data))
     response = []
     for item in items:
         response.append(item.toDict())
@@ -84,7 +86,7 @@ def list_all_controller_json():
 
 
 def list_all_data_controller_json(id_result):
-    data = Data.query.filter(Data.id_result == id_result)
+    data = Data.query.filter(Data.id_result == id_result).order_by(Data.priorizado, desc(Data.valor))
     response = []
     for item in data:
         response.append(item.toDict())
