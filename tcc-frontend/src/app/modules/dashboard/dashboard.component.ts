@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   }
 
   chart: any;
+  qtdeTotal = 0;
+  valorTotal = 0;
   qtdePriorizada = 0;
   valorPriorizado = 0;
 
@@ -113,6 +115,10 @@ export class DashboardComponent implements OnInit {
     let mapAtividade = new Map<string, number>();
 
     for (let i = 0; i < result.length; i++) {
+
+      this.valorTotal+=result[i].valor;
+      this.qtdeTotal++
+
       if (!result[i].priorizado){
         continue
       }
