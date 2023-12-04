@@ -11,10 +11,7 @@
                         </div>
                     </div>
                     <div class="block w-full">
-                        <div style="width: 400px; height: auto; margin: 0 auto" *ngIf="historicoSize == 0">
-                            <img src="./assets/Image%20upload-rafiki.svg" alt="upload">
-                        </div>
-                        <div style="width: 90%; height: auto; margin: 20px auto 0;" *ngIf="historicoSize > 0">
+                        <div style="width: 90%; height: auto; margin: 20px auto 0;">
                             <table mat-table [dataSource]="dtsHistorico" class="mat-elevation-z8" style="width: 80%">
                                 <ng-container matColumnDef="historico-id">
                                     <th mat-header-cell *matHeaderCellDef> Ordem </th>

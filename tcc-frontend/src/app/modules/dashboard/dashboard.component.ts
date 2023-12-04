@@ -39,8 +39,6 @@ export class DashboardComponent implements OnInit {
   set paginator(value: MatPaginator) {
     if (this.dtsResult){
       this.dtsResult.paginator = value;
-    }if (this.dtsHistorico){
-      this.dtsHistorico.paginator = value;
     }
   }
 
