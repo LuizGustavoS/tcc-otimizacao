@@ -1,13 +1,14 @@
 import uuid
 
 from flask import request, jsonify
+from sqlalchemy import desc
 
 from .models import Info
 from ..__init__ import db
 
 
 def list_all_controller_json(tipo):
-    items = Info.query.filter(Info.tipo == tipo)
+    items = Info.query.filter(Info.tipo == tipo).order_by(desc(Info.peso), Info.descricao)
     response = []
     for item in items:
         response.append(item.toDict())

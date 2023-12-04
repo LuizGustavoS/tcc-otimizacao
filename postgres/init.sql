@@ -74,4 +74,4 @@ VALUES (gen_random_uuid(), 'Emergência',   2, 10),
        (gen_random_uuid(), 'Data Marcada', 2, 0);
 
 INSERT INTO config(id, num_pop_init, num_geracoes, orcamento_mes)
-VALUES (1, 10, 100, 1000000);
+VALUES (1, 10, 100, 700000);
