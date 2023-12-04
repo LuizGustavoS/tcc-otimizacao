@@ -55,9 +55,8 @@
                                     <mat-card-content>
                                         <div class="flex flex-column justify-content-between p-5">
                                             <mat-progress-bar mode="determinate" value="{{(qtdePriorizada/qtdeTotal)*100}}"></mat-progress-bar>
-                                            <div class="flex flex-row">
+                                            <div class="flex flex-row justify-content-between">
                                                 <div>{{qtdePriorizada}}</div>
-                                                <div>{{' / '}}</div>
                                                 <div>{{qtdeTotal}}</div>
                                             </div>
                                         </div>
@@ -67,12 +66,9 @@
                                     <mat-card-subtitle>Valor Total Priorizadas</mat-card-subtitle>
                                     <mat-card-content>
                                         <div class="flex flex-column justify-content-between p-5">
-                                            <mat-progress-bar style="margin-top: 6px" mode="determinate"
-                                                              value="{{(valorPriorizado/valorTotal)*100}}">
-                                            </mat-progress-bar>
-                                            <div class="flex flex-row">
+                                            <mat-progress-bar mode="determinate" value="{{(valorPriorizado/valorTotal)*100}}"></mat-progress-bar>
+                                            <div class="flex flex-row justify-content-between">
                                                 <div> {{valorPriorizado | currency}} </div>
-                                                <div> {{' / '}} </div>
                                                 <div> {{valorTotal | currency}} </div>
                                             </div>
                                         </div>
