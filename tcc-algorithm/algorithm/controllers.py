@@ -58,7 +58,6 @@ def executar_algoritmo(ws_base):
         verbose=True
     )
 
-    response = []
     result = create_result()
     for index, j in enumerate(hof.items[0]):
 
@@ -70,10 +69,9 @@ def executar_algoritmo(ws_base):
             data.priorizado = "Priorizado"
 
         db.session.add(data)
-        response.append(data.toJSON())
 
     db.session.commit()
-    return jsonify(response)
+    return list_all_data_controller_json(result.id)
 
 
 def list_all_controller_json():
