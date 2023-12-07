@@ -63,3 +63,4 @@ def retrieve_item_controller(info_id):
 def delete_item_controller(info_id):
     Info.query.filter_by(id=info_id).delete()
     db.session.commit()
+    return jsonify()

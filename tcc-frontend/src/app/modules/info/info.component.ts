@@ -2,7 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {InfoService} from "../../services/info.service";
 import {Info} from "../../model/Info";
 import {MatDialog} from "@angular/material/dialog";
-import {InfoEditarComponent} from "./popup/info-editar.component";
+import {InfoEditarComponent} from "./editar/info-editar.component";
+import {InfoApagarComponent} from "./apagar/info-apagar.component";
 
 @Component({
   selector: 'app-info',
@@ -45,7 +46,9 @@ export class InfoComponent implements OnInit {
       data: newInfo,
     });
 
-    dialogRef.afterClosed().subscribe(() => {});
+    dialogRef.afterClosed().subscribe(() => {
+      this.buscarInfoPorTipo();
+    });
   }
 
   insertUpdate(info: Info): void {
@@ -59,12 +62,12 @@ export class InfoComponent implements OnInit {
   }
 
   delete(info: Info): void {
-    this.infoService.delete(info).subscribe(() =>{
-      this.listInfos.forEach((item, index) => {
-        if(item === info){
-          this.listInfos.splice(index,1);
-        }
-      });
+    const dialogRef = this.dialog.open(InfoApagarComponent, {
+      data: info,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.buscarInfoPorTipo();
     });
   }
 

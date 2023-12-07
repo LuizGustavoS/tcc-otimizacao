@@ -10,12 +10,13 @@ import {MatListModule} from '@angular/material/list';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
-import {InfoEditarComponent} from "./popup/info-editar.component";
+import {InfoEditarComponent} from "./editar/info-editar.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {InfoApagarComponent} from "./apagar/info-apagar.component";
 
 const routesM: Routes = [
   {
@@ -31,7 +32,8 @@ const routesM: Routes = [
 @NgModule({
   declarations: [
     InfoComponent,
-    InfoEditarComponent
+    InfoEditarComponent,
+    InfoApagarComponent
   ],
     imports: [
         CommonModule,
