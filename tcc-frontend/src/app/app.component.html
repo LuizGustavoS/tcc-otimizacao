@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
     <button mat-flat-button color="primary" (click)="onTabChanged(0)" [ngClass]="{'btn-clicked': selected==0}">Dashboard</button>
-    <button mat-flat-button color="primary" (click)="onTabChanged(1)" [ngClass]="{'btn-clicked': selected==1}">Infos</button>
-    <button mat-flat-button color="primary" (click)="onTabChanged(2)" [ngClass]="{'btn-clicked': selected==2}">Config</button>
+    <button mat-flat-button color="primary" (click)="onTabChanged(1)" [ngClass]="{'btn-clicked': selected==1}">Estratégias</button>
+    <button mat-flat-button color="primary" (click)="onTabChanged(2)" [ngClass]="{'btn-clicked': selected==2}">Configurações</button>
 </mat-toolbar>
 <app-loader></app-loader>
 <router-outlet></router-outlet>

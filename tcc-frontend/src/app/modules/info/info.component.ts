@@ -20,9 +20,9 @@ export class InfoComponent implements OnInit {
 
   listInfos: Array<Info> = [];
   listTipos = [
-      {id: 0, label: 'Equipamento'},
+      {id: 0, label: 'Prioridade'},
       {id: 1, label: 'Atividade'},
-      {id: 2, label: 'Ordem'}
+      {id: 2, label: 'Caráter'}
   ]
 
   displayedColumns: string[] = ['info-descricao', 'info-peso', 'info-editar', 'info-excluir'];
