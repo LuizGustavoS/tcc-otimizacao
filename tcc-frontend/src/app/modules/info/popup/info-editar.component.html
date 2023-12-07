@@ -9,8 +9,13 @@
             <input matInput formControlName="peso">
         </mat-form-field>
     </div>
-    <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Cancelar</button>
-        <button mat-button (click)="gravar()">Gravar</button>
+
+    <div mat-dialog-actions class="flex justify-content-end" style="gap: 10px">
+        <div>
+            <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" (click)="gravar()">Gravar</button>
+        </div>
     </div>
 </form>
